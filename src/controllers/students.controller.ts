@@ -13,14 +13,21 @@ import { Student } from 'src/schemas/student.schema';
 import { CreateUserDto, CreateUserSchema } from '../dtos/createUser.dto';
 import { ReqBodyValidator } from '../middlewares/reqBodyValidator.middleware';
 import { StudentsService } from '../services/students.service';
+import { ConfigService } from '@nestjs/config';
 
 @Controller('students')
 export class StudentsController {
-  constructor(private readonly studentsService: StudentsService) {}
+  constructor(
+    private readonly studentsService: StudentsService,
+    private readonly configService: ConfigService,
+  ) {}
 
   @Get()
   find(): string {
-    return 'This action returns all students';
+    return (
+      'This action returns all students' +
+      this.configService.get<string>('mongoConfigs.url')
+    );
   }
 
   @Post()
