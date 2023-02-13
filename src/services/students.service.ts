@@ -1,4 +1,8 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  InternalServerErrorException,
+  HttpStatus,
+  Injectable,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateUserDto } from '../dtos/createUser.dto';
@@ -16,16 +20,10 @@ export class StudentsService {
       const newUserCreated = await this.studentModel.create(createUserDto);
       return newUserCreated;
     } catch (err) {
-      throw new HttpException(
-        {
-          status: HttpStatus.INTERNAL_SERVER_ERROR,
-          error: 'Fail to create new user',
-        },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-        {
-          cause: err,
-        },
-      );
+      throw new InternalServerErrorException('Fail to create new students', {
+        cause: err,
+        description: 'Internal server error',
+      });
     }
   }
 
