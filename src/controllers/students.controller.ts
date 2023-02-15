@@ -14,6 +14,7 @@ import { CreateUserDto, CreateUserSchema } from '../dtos/createUser.dto';
 import { ReqBodyValidator } from '../middlewares/reqBodyValidator.middleware';
 import { StudentsService } from '../services/students.service';
 import { ConfigService } from '@nestjs/config';
+import { RequireRoles, Role } from '../middlewares/roles.guard';
 
 @Controller('students')
 export class StudentsController {
@@ -23,6 +24,7 @@ export class StudentsController {
   ) {}
 
   @Get()
+  @RequireRoles(Role.Admin, Role.User)
   find(): string {
     return (
       'This action returns all students' +

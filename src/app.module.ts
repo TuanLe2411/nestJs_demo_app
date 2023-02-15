@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CustomConfigModule } from './modules/customConfig.module';
 import { StudentsModule } from './modules/students.module';
+import { RolesModule } from './modules/roles.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { StudentsModule } from './modules/students.module';
       inject: [ConfigService],
     }),
     StudentsModule,
+    RolesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
